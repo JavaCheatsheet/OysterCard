@@ -107,7 +107,8 @@ swipe out, they are charged the maximum fare).
 From the given requirement, when ever I check
 into the station, the fare is set to maximum which
 in this case should be £3.20 as fares provided -
-Any three zones - £3.20
+
+Case - "Any three zones - £3.20"
 
 So to use Tube, I must have minimum balance in my
 card. The checking is done while entering a station.
@@ -119,8 +120,8 @@ check out of the station. If I don't swipe the
 card while checking out, the card will be charged
 the maximum. This check can be done either at 
 the EOD or when the user checks in next time.
-For now we will deduce when the user checks-in
-again.
+For now, we will deduce when the user checks-in
+again, previous charge is calculated.
 
 Let's start with the simplest journey I can make,
 i.e. Anywhere in Zone 1 - £2.50, from Holborn 
@@ -140,6 +141,13 @@ I am travelling to, from and to.
 Check which zone the stations are.
 
 
+Case - "Any one zone outside zone 1 - £2.00"
+This logic is not that clear so skipping to next
+for now.
+
+Case - "Any two zones including zone 1 - £3.00"
+Lets say I'm travelling from Wimbledon(3) to 
+Holborn(1).
 
 
 
