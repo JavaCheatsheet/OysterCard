@@ -153,6 +153,41 @@ Case - Any two zones excluding zone 1 - £2.25
 Lets say I'm travelling from Wimbledon(3) to
 Hammersmith(2).
 
+Case - Any three zones - £3.20
+Holborn - 1
+Wimbledon - 3
+Hammersmith - 2
+
+For this case the assumptions I can make is
+- One Tube can pass through many zones so that
+sequentially. 
+- Or I have to take another Tube in the same 
+platform to go to another zone.
+
+In any case, the final cost is charged once
+I check out of the station.
+
+So the question is how does the system know
+that I have travelled 3 zones. The best possible
+understanding is that the Zones comes one after
+another, or are sequential. Probably this is the 
+reason 1,2 and 3 numbers are given in the example.
+
+Therefore, the first platform must be a straight
+line connecting the Zones. For example, let's
+suppose I am in Zone 1 and to reach Zone three,
+I have to go through Zone 2, which makes logical 
+sense. And I am in Zone 3, to get to Zone 1, I 
+have the Tube takes me through Zone 2.
+
+For the stations above, I am travelling from 
+Zone 1 to Zone 3.
+
+I check in at Holborn station, Zone 1.
+Tube goes through Zone 2 passing along
+stations in this Zone.
+Tube reaches Zone 3 and get off at Wimbledon
+station.
 
 
 
