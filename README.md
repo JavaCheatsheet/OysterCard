@@ -126,11 +126,20 @@ Let's start with the simplest journey I can make,
 i.e. Anywhere in Zone 1 - £2.50, from Holborn 
 station to Earl’s Court station.
 
-Let's assume I have the minimum balance.
+Let's assume I have the minimum balance and I can
+check-in.
 
-The story would be - As a user I should be able
+The story would be - As a user, I should be able
 to travel from Holborn station to Earl's Court
 station, given I have minimum balance in my card.
+
+### Calculating Fare
+The charge rate is defined based on which zones
+I am travelling to, from and to.
+
+Check which zone the stations are.
+
+
 
 
 
