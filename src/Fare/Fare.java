@@ -24,10 +24,17 @@ public class Fare {
             if ( checkInZone == checkOutZone && checkInZone == 1)
                 return 2.5;
 
+            // Any two zones excluding zone 1
+            else if ( checkInZone > 1 && checkOutZone > 1 )
+                return 2.25;
+
             // Any two zones including zone 1
-            else if ( ( ( checkInZone == 1 || checkOutZone > 1)
-                        || ( checkInZone > 1 || checkOutZone == 1) ))
+            else if (( checkInZone == 1 && checkOutZone > 1)
+                        || ( checkInZone > 1 && checkOutZone == 1 ))
                 return 3.5;
+
+
+
 
         } catch ( StationNotFoundException e ) {
             System.out.println(e.getMessage());
@@ -41,6 +48,7 @@ public class Fare {
         zoneStation.put("Holborn", 1);
         zoneStation.put("EarlsCourt", 1);
         zoneStation.put("Wimbledon", 3);
+        zoneStation.put("Hammersmith", 2);
 
         try {
             return zoneStation.get(station);

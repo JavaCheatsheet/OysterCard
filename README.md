@@ -149,6 +149,9 @@ Case - "Any two zones including zone 1 - £3.00"
 Lets say I'm travelling from Wimbledon(3) to 
 Holborn(1).
 
+Case - Any two zones excluding zone 1 - £2.25
+Lets say I'm travelling from Wimbledon(3) to
+Hammersmith(2).
 
 
 
