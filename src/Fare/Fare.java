@@ -13,8 +13,7 @@ public class Fare {
     }
 
     public double getFair() {
-        int checkInZone = 0;
-        int checkOutZone = 0;
+        int checkInZone, checkOutZone;
 
         try {
             int[] checkInCheckOutZones = getCheckInCheckOutZones();
@@ -60,7 +59,7 @@ public class Fare {
         zoneStation.put("Wimbledon", 3);
 
         try {
-            if ( checkOutStation == "Earlscourt"
+            if ( checkOutStation.equals("Earlscourt")
                 && zoneStation.get(checkInStation) < 2 )
                     return new int[] { 1, 1 };
 
