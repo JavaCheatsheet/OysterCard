@@ -121,14 +121,15 @@ card while checking out, the card will be charged
 the maximum. This check can be done either at 
 the EOD or when the user checks in next time.
 For now, we will deduce when the user checks-in
-again, previous charge is calculated.
+again, previous charge is calculated and reduced
+, if any.
 
 Let's start with the simplest journey I can make,
 i.e. Anywhere in Zone 1 - £2.50, from Holborn 
 station to Earl’s Court station.
 
-Let's assume I have the minimum balance and I can
-check-in.
+Let's assume I have the minimum balance. Then I 
+checkin.
 
 The story would be - As a user, I should be able
 to travel from Holborn station to Earl's Court
@@ -138,57 +139,179 @@ station, given I have minimum balance in my card.
 The charge rate is defined based on which zones
 I am travelling to, from and to.
 
-Check which zone the stations are.
+Cases to implement:
+* Anywhere in Zone 1 £2.50
+* Any one zone outside zone 1 £2.00
+* Any two zones including zone 1 £3.00
+* Any two zones excluding zone 1 £2.25
+* Any three zones £3.20
+* Any bus journey £1.80
 
+Simple solution would be -
+Check in which zone the stations are located?
 
-Case - "Any one zone outside zone 1 - £2.00"
+### Case - "Any one zone outside zone 1 - £2.00"
 This logic is not that clear so skipping to next
 for now.
 
-Case - "Any two zones including zone 1 - £3.00"
+### Case - "Any two zones including zone 1 - £3.00"
 Lets say I'm travelling from Wimbledon(3) to 
 Holborn(1).
 
-Case - Any two zones excluding zone 1 - £2.25
-Lets say I'm travelling from Wimbledon(3) to
+### Case - Any two zones excluding zone 1 - £2.25
+Lets say, I'm travelling from Wimbledon(3) to
 Hammersmith(2).
 
-Case - Any three zones - £3.20
+### Case - Any three zones - £3.20
 Holborn - 1
 Wimbledon - 3
 Hammersmith - 2
 
-For this case the assumptions I can make is
-- One Tube can pass through many zones so that
+For this case the assumptions I make:
+- One Tube can pass through many zones,
 sequentially. 
+
 - Or I have to take another Tube in the same 
 platform to go to another zone.
 
-In any case, the final cost is charged once
-I check out of the station.
+In any case, the final cost is charged once I 
+check out of the station.
 
-So the question is how does the system know
-that I have travelled 3 zones. The best possible
-understanding is that the Zones comes one after
-another, or are sequential. Probably this is the 
-reason 1,2 and 3 numbers are given in the example.
+So the question is - 
 
-Therefore, the first platform must be a straight
-line connecting the Zones. For example, let's
-suppose I am in Zone 1 and to reach Zone three,
-I have to go through Zone 2, which makes logical 
-sense. And I am in Zone 3, to get to Zone 1, I 
-have the Tube takes me through Zone 2.
+How does the system know that I have travelled 
+3 zones? 
 
-For the stations above, I am travelling from 
-Zone 1 to Zone 3.
+The best possible understanding is that the 
+Zones comes one after another, or are sequential. 
 
-I check in at Holborn station, Zone 1.
-Tube goes through Zone 2 passing along
-stations in this Zone.
-Tube reaches Zone 3 and get off at Wimbledon
-station.
+Probably this is the reason 1,2 and 3 numbers are 
+given in the example.
 
+Therefore, first, the platform must be a linear
+connecting the Zones. For example, let's suppose 
+I am in Zone 1 and to reach Zone three, I have to 
+go through Zone 2, which makes logical sense. And 
+I am in Zone 3, to get to Zone 1, I have the Tube 
+takes me through Zone 2.
 
+For the stations above, I am travelling from Zone 
+1 to Zone 3.
+
+I check in at Holborn station, Zone 1. Tube goes 
+through Zone 2 passing along stations in this Zone.
+Tube reaches Zone 3 and get off at Wimbledon station.
+
+### Case - Any one zone outside zone 1
+The understanding is this  - Fare to travel 
+in any other zone (with in that Zone) except 
+Zone 1 is £2.00.
+
+From the provided information, we can take 
+Zone 2 as an example.
+
+Earl’s Court - 1, 2
+Hammersmith - 2
+
+I can travel from Earl's Court to Hammersmith
+while being in Zone 2.
+
+Earl's Court is also in Zone 1 and as well as 
+Zone 2. As we have already mapped this station
+in Zone 1, we have to rethink of the Zone-Station 
+map logic and used data structure.
+
+Previously HashMap was used for storing Station 
+name mapped with Zone number, one on one mapping.
+
+`
+HashMap<String, Integer> zoneStation = new HashMap<>();
+zoneStation.put("EarlsCourt", 1);
+`
+
+Problem - One Zone Can Multiple Stations. 
+This problem should have been realized in the very 
+beginning, which it was but left out to see how the
+solution evolves to meet the requirements, the TDD
+approach to adjusting to change.
+
+Try using 
+`Hashmap <Zone, List<Station>>` 
+to solve the problem.
+
+The existing functionality - 
+`int[] getCheckInCheckOutZones()`
+
+searches Zone from Station. Now as we have 
+`Zone` as the key, we need to search all the 
+Zones to get `Stations`. It is costly to 
+iterate through all the Zones and check. 
+
+I think it would be better to use
+`Hashmap <Station, List<Zone>>`
+
+**Pseudocode** 
+Are checkin station and checkout stations 
+in the same Zone?
+If yes, and return the same Zone.
+Else, return their respective Zones.
+
+While solving the problems from this perspective,
+`The case of Zone containing more than one Station`
+it forced to reevaluate the entire implementation.
+
+It even forced to question the nature of my first
+belief that platform is linear and not circular.
+I had questions if there would be many small 
+distributed separate platforms. 
+
+I requested clarification and got the answers -
+1. Platform is Linear and NOT Circular.
+
+2. Tube moves from one Zone to other from higher
+to lower by its assigned number, i.e. Zones are
+in ascending order and the train moves from low
+to high (for now).
+"Hence to reach a zone with a higher number you 
+would go through the ones with lower number."
+
+3. Choose among fares when they become ambiguous -
+The system should favour the Customer where more 
+than one fare is possible for a given journey.
+
+Verify test cases.
+
+The problem that was created after using the new
+data structure was finding the checkin and checkout
+stations. For the given data where only Earl’s Court 
+are located in two Zones (1, 2) we can hard code it 
+but if there are other stations as such or even more
+the current implementation would not work.
+
+In case of multiple stations with multiple Zones, 
+It would be difficult to match the Zones and get
+the rate. Or as the statement suggests to favour
+the Customer, we choose the Zone with the lowest
+rate.
+
+As every solution has its constraints, we will assume
+only Earl's Court belongs to two Zones and none other
+station does (provided data).
+
+After further reviewing, simple condition to check 
+if checkout is Earlscourt and checkin is from the
+stations in Zone 1 would be enough. So there is
+minimum change in the code.
+`
+if ( checkOutStation == "Earlscourt"
+    && zoneStation.get(checkInStation) < 2 )
+    
+    return new int[] { 1, 1 };
+`
+
+The fare system is designed only to check Tube
+travellers travelling in ascending order only.
+
+Tube does not go backward.
 
 
