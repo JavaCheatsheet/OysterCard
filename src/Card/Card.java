@@ -14,10 +14,10 @@ public class Card {
         return this.amount += topUpAmount;
     }
 
-    public double charge(double fare) {
+    public void charge(double fare) {
 
         if ( hasMinimumBalance(fare) )
-            return  this.amount -= fare;
+            this.amount -= fare;
         else
             throw new BelowMinimumBalanceException(
                     "Your account does not have enough balance!");

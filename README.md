@@ -357,8 +357,7 @@ Steps:
 ## Tube Fare Implementation Review
 Response from Alef-
 `You should consider Earl's Court both in zone 1
-and 2, so your example for "Any one zone outside 
-zone 1" would be incorrect, same with the first 
+and 2, so your example for "Any one zone outside zone 1" would be incorrect, same with the first 
 example for "Any two zones excluding zone 1". 
 
 On the last fare, although it's correct, I just 
@@ -368,4 +367,37 @@ fare or the worst case scenario.`
 
 Fixed an assumption and the failing test case 
 based on the response.
+
+## Simulate Tube Checkin-Checkout
+When I checkin, system just needs to know
+where I checked in, which station. 
+
+Why station? Because unlike Bus, Tube fare
+is different based on Zones.
+
+I am also assuming that devices understands
+either the customer is checking-in or checking
+-out. Otherwise, the logic would be complex.
+For simplicity, I would like to think this way.
+
+Also the possibility of checking-in from other
+locations from station in Tube is ZERO. I can
+only checkin from a station. ( SLA,SLO,
+
+Note: Need to add these points while submitting
+the solution.
+
+But in case of BUS, there is only one device.
+If I tap-in the Card second time when should 
+the system understand I checked-in or out?
+For example, If I tap the card twice consecutively
+while I checkin, should the system assume that
+I checkout? Should the system charge for that?
+Or charge only when the Bus moves and to another
+location? It depends upon the device that the
+bus has for checking-in and out. 
+
+For now we assume that - 
+THE BUS HAS TWO DEVICES FOR CHECKIN AND OUT.
+
 

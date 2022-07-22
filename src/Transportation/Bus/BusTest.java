@@ -56,7 +56,8 @@ public class BusTest {
         bus.checkin();
 
         double expected = 20 - 1.8;
-        double actual = bus.checkout();
+        bus.checkout();
+        double actual = card.getAmount();
 
         Assert.assertFalse(card.getCheckedInStatus());
         Assert.assertEquals(expected, actual, epsilon);

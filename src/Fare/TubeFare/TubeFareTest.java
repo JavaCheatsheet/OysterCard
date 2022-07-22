@@ -1,5 +1,6 @@
 package Fare.TubeFare;
 
+import Fare.LocationCanNotBeEmptyException;
 import Fare.StationNotFoundException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,7 +31,8 @@ public class TubeFareTest {
 
     @Test
     // Any two zones excluding zone 1 £2.25
-    public void givenMinimumBalanceTravelFromEarlscourtToWimbledon(){
+    public void givenMinimumBalanceTravelFromEarlscourtToWimbledon()
+            throws LocationCanNotBeEmptyException {
         TubeFare fare = new TubeFare("Earlscourt", "Wimbledon");
         double expectedTubeTubeFare = fare.getFair();
         double epsilon = 0.000001d;
@@ -40,7 +42,8 @@ public class TubeFareTest {
 
     @Test
     // Any two zones including zone 1 £3.00
-    public void givenMinimumBalanceTravelFromHolbornToHammersmith(){
+    public void givenMinimumBalanceTravelFromHolbornToHammersmith()
+            throws LocationCanNotBeEmptyException {
         TubeFare fare = new TubeFare("Holborn", "Hammersmith");
         double expectedTubeFare = fare.getFair();
         double epsilon = 0.000001d;
@@ -64,7 +67,8 @@ public class TubeFareTest {
 
     @Test
     // Any two zones excluding zone 1 £2.25
-    public void givenMinimumBalanceTravelFromHammersmithToWimbledon(){
+    public void givenMinimumBalanceTravelFromHammersmithToWimbledon()
+            throws LocationCanNotBeEmptyException {
 
         TubeFare fare = new TubeFare("Hammersmith", "Wimbledon");
         double expectedTubeFare = fare.getFair();
@@ -75,7 +79,8 @@ public class TubeFareTest {
 
     @Test
     // Any three zones £3.20
-    public void givenMinimumBalanceTravelFromHolbornToWimbledon(){
+    public void givenMinimumBalanceTravelFromHolbornToWimbledon()
+            throws LocationCanNotBeEmptyException {
 
         TubeFare fare = new TubeFare("Holborn", "Wimbledon");
         double expectedTubeFare = fare.getFair();
@@ -86,7 +91,8 @@ public class TubeFareTest {
 
     @Test
     // Anywhere in Zone 1 £2.50
-    public void givenMinimumBalanceTravelFromHolbornToEarlsCourt(){
+    public void givenMinimumBalanceTravelFromHolbornToEarlsCourt()
+            throws LocationCanNotBeEmptyException {
 
         TubeFare fare = new TubeFare("Holborn", "Earlscourt");
         double expectedTubeFare = fare.getFair();
@@ -97,7 +103,8 @@ public class TubeFareTest {
 
     @Test
     // Any one zone outside zone 1 £2.00
-    public void givenMinimumBalanceTravelFromToonsvilToWimbelson(){
+    public void givenMinimumBalanceTravelFromToonsvilToWimbelson()
+            throws LocationCanNotBeEmptyException {
 
         TubeFare fare = new TubeFare("Toonsvil", "Wimbledon");
         double expectedTubeFare = fare.getFair();

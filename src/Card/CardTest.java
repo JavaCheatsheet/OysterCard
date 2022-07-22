@@ -18,7 +18,8 @@ public class CardTest {
         double epsilon = 0.000001d;
         Card wallet = new Card(Integer.MAX_VALUE);
         wallet.topUp(20);
-        double expectedAmount = wallet.charge(3);
+        wallet.charge(3);
+        double expectedAmount = wallet.getAmount();
         Assert.assertEquals(17, expectedAmount, epsilon);
     }
 
