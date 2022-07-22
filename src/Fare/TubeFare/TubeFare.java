@@ -1,13 +1,15 @@
-package Fare;
+package Fare.TubeFare;
+
+import Fare.StationNotFoundException;
 
 import java.util.HashMap;
 
-public class Fare {
+public class TubeFare {
 
-    String checkInStation;
-    String checkOutStation;
+    private String checkInStation;
+    private String checkOutStation;
 
-    Fare( String checkInStation, String checkOutStation ) {
+    TubeFare( String checkInStation, String checkOutStation ) {
         this.checkInStation = checkInStation;
         this.checkOutStation = checkOutStation;
     }
@@ -27,7 +29,7 @@ public class Fare {
 
 //            Any one zone outside zone 1 £2.00
             else if ( checkInZone == checkOutZone
-                    && checkInZone == 2 )
+                    && checkInZone != 1 )
                 return 2.0;
 
 //            Any three zones - £3.20
@@ -56,6 +58,7 @@ public class Fare {
         zoneStation.put("Holborn", 1);
         zoneStation.put("Earlscourt", 2);
         zoneStation.put("Hammersmith", 2);
+        zoneStation.put("Toonsvil", 3);
         zoneStation.put("Wimbledon", 3);
 
         try {
@@ -72,9 +75,4 @@ public class Fare {
         }
     }
 
-}
-class StationNotFoundException extends NullPointerException {
-    public StationNotFoundException(String errorMessage) {
-        super(errorMessage);
-    }
 }

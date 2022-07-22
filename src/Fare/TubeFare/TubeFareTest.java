@@ -1,5 +1,6 @@
-package Fare;
+package Fare.TubeFare;
 
+import Fare.StationNotFoundException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,7 +15,8 @@ import org.junit.Test;
  *
  Anywhere in Zone 1 £2.50 : Holburn to Earl’s Court (Given)
 
- Any one zone outside zone 1 £2.00 : Earl’s Court to Hammersmith
+ Any one zone outside zone 1 £2.00 : Toonsvil to Wimbelson
+ Let's add a new station name Toonsvil in zone 3.
 
  Any two zones including zone 1 £3.00: Holborn to Hammersmith
 
@@ -24,33 +26,33 @@ import org.junit.Test;
  *
  */
 
-public class FareTest {
+public class TubeFareTest {
 
     @Test
     // Any two zones excluding zone 1 £2.25
     public void givenMinimumBalanceTravelFromEarlscourtToWimbledon(){
-        Fare fare = new Fare("Earlscourt", "Wimbledon");
-        double expectedFare = fare.getFair();
+        TubeFare fare = new TubeFare("Earlscourt", "Wimbledon");
+        double expectedTubeTubeFare = fare.getFair();
         double epsilon = 0.000001d;
 
-        Assert.assertEquals(2.25, expectedFare, epsilon);
+        Assert.assertEquals(2.25, expectedTubeTubeFare, epsilon);
     }
 
     @Test
     // Any two zones including zone 1 £3.00
     public void givenMinimumBalanceTravelFromHolbornToHammersmith(){
-        Fare fare = new Fare("Holborn", "Hammersmith");
-        double expectedFare = fare.getFair();
+        TubeFare fare = new TubeFare("Holborn", "Hammersmith");
+        double expectedTubeFare = fare.getFair();
         double epsilon = 0.000001d;
 
-        Assert.assertEquals(3.00, expectedFare, epsilon);
+        Assert.assertEquals(3.00, expectedTubeFare, epsilon);
     }
 
     @Test
     public void givenDubaiStationThatDoesNotExistThrowsException() {
         Exception exception = Assert.assertThrows(
                 StationNotFoundException.class, () -> {
-                    Fare fare = new Fare("Dubai", "Hammersmith");
+                    TubeFare fare = new TubeFare("Dubai", "Hammersmith");
                     fare.getCheckInCheckOutZones();
                 });
 
@@ -64,43 +66,43 @@ public class FareTest {
     // Any two zones excluding zone 1 £2.25
     public void givenMinimumBalanceTravelFromHammersmithToWimbledon(){
 
-        Fare fare = new Fare("Hammersmith", "Wimbledon");
-        double expectedFare = fare.getFair();
+        TubeFare fare = new TubeFare("Hammersmith", "Wimbledon");
+        double expectedTubeFare = fare.getFair();
         double epsilon = 0.000001d;
 
-        Assert.assertEquals(2.25, expectedFare, epsilon);
+        Assert.assertEquals(2.25, expectedTubeFare, epsilon);
     }
 
     @Test
     // Any three zones £3.20
     public void givenMinimumBalanceTravelFromHolbornToWimbledon(){
 
-        Fare fare = new Fare("Holborn", "Wimbledon");
-        double expectedFare = fare.getFair();
+        TubeFare fare = new TubeFare("Holborn", "Wimbledon");
+        double expectedTubeFare = fare.getFair();
         double epsilon = 0.000001d;
 
-        Assert.assertEquals(3.20, expectedFare, epsilon);
+        Assert.assertEquals(3.20, expectedTubeFare, epsilon);
     }
 
     @Test
     // Anywhere in Zone 1 £2.50
     public void givenMinimumBalanceTravelFromHolbornToEarlsCourt(){
 
-        Fare fare = new Fare("Holborn", "Earlscourt");
-        double expectedFare = fare.getFair();
+        TubeFare fare = new TubeFare("Holborn", "Earlscourt");
+        double expectedTubeFare = fare.getFair();
         double epsilon = 0.000001d;
 
-        Assert.assertEquals(2.5, expectedFare, epsilon);
+        Assert.assertEquals(2.5, expectedTubeFare, epsilon);
     }
 
     @Test
     // Any one zone outside zone 1 £2.00
-    public void givenMinimumBalanceTravelFromEarlsCourtToHammersmith(){
+    public void givenMinimumBalanceTravelFromToonsvilToWimbelson(){
 
-        Fare fare = new Fare("Earlscourt", "Hammersmith");
-        double expectedFare = fare.getFair();
+        TubeFare fare = new TubeFare("Toonsvil", "Wimbledon");
+        double expectedTubeFare = fare.getFair();
         double epsilon = 0.000001d;
 
-        Assert.assertEquals(2.00, expectedFare, epsilon);
+        Assert.assertEquals(2.00, expectedTubeFare, epsilon);
     }
 }

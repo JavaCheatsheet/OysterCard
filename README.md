@@ -30,7 +30,7 @@ Earl’s Court - 1, 2
 Wimbledon - 3
 Hammersmith - 2
 
-Journey Fare
+Transportation Fare
 Anywhere in Zone 1 - £2.50
 Any one zone outside zone 1 - £2.00
 Any two zones including zone 1 - £3.00
@@ -38,7 +38,7 @@ Any two zones excluding zone 1 - £2.25
 Any three zones - £3.20
 Any bus journey - £1.80
 
-## Entities
+### Analysis
 What are the interacting entities?
 
 Note - I am assuming myself as a traveller
@@ -87,6 +87,7 @@ The second feature of the system is calculating
 the fair. This should be the core business logic.
 And we will focus more here and start from here.
 
+## Model Tube Fare System
 The complex calculations is when I use the 
 Tube to travel. So first let's assume I can 
 only travel via Tube. And to design this 
@@ -312,6 +313,59 @@ if ( checkOutStation == "Earlscourt"
 The fare system is designed only to check Tube
 travellers travelling in ascending order only.
 
-Tube does not go backward.
+**Note:**
+**Tube does not go backward.**
 
+## Enable Bus Fare
+We will add bus fare system.
+
+`Any/All bus journey £1.80`
+
+Bus travel just concerns checkin and checkout.
+There is no specific detail provided for max
+fare for bus so as a convenience of the Customer,
+if in case of the Customer forgets to checkout,
+£1.80 will be charged in the next checkin.
+
+
+## Add Card Service
+As a Oyster Card holder, I should be able to 
+pay the fares of my journeys. 
+
+Card is subsystem what will keep track of 
+the transactions. 
+
+I can add money to my card(manual) and the amount is
+reduced as per travel (when the checkout is complete or
+while checkin if did I not checkout last time, automated).
+
+## Simulate Bus Checkin-Checkout
+
+Bus has a device to read the card.
+
+Simulate "328 bus from Earl’s Court to Chelsea"
+
+Steps:
+1. Checkin in the bus
+   1. Machine check if I have minimum balance 1.80 
+   2. If not, I can not checkin
+   3. Set the status to checked-in the card
+2. Checkout 
+   1. Deduct the amount in the card
+   2. Set the status to checked-out in the card
+
+## Tube Fare Implementation Review
+Response from Alef-
+`You should consider Earl's Court both in zone 1
+and 2, so your example for "Any one zone outside 
+zone 1" would be incorrect, same with the first 
+example for "Any two zones excluding zone 1". 
+
+On the last fare, although it's correct, I just 
+wanted to emphasize that any three zones means 
+from anywhere to anywhere, it's like a fallback 
+fare or the worst case scenario.`
+
+Fixed an assumption and the failing test case 
+based on the response.
 
