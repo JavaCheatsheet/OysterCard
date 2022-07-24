@@ -1,5 +1,5 @@
-import Card.Card;
-import Card.BelowMinimumBalanceException;
+import main.java.com.alefeducation.modules.card.Card;
+import main.java.com.alefeducation.modules.card.BelowMinimumBalanceException;
 import org.junit.Assert;
 import org.junit.Test;
 

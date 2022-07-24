@@ -1,6 +1,8 @@
-import Card.Card;
-import Card.BelowMinimumBalanceException;
-import Transportation.Bus.Bus;
+package test.java.integration;
+
+import main.java.com.alefeducation.modules.card.Card;
+import main.java.com.alefeducation.modules.card.BelowMinimumBalanceException;
+import main.java.com.alefeducation.modules.transportation.Bus;
 import org.junit.Assert;
 import org.junit.Test;
 

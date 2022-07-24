@@ -1,0 +1,16 @@
+#!/bin/sh
+
+echo "Git Hook Pre-Commit Executed" 
+echo "Running Tests"
+
+TEST_RESULT=$(mvn clean test 2>&1)
+
+if [ $? -ne 0 ]; then
+  
+  echo
+  echo "Errors While Running Tests!"
+  echo "${TEST_RESULT}" | ((tee /dev/fd/5 | grep -A 10 -B 2 "Reactor Summary:" >/dev/fd/4) 5>&1 | sed -n -e '/^Failed tests:/,/Tests run:.*$/ p' ) 4>&1
+  echo
+  
+  exit 1
+fi

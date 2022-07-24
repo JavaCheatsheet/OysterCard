@@ -1,5 +1,7 @@
-import Card.Card;
-import Transportation.Tube.Tube;
+package test.java.integration;
+
+import main.java.com.alefeducation.modules.card.Card;
+import main.java.com.alefeducation.modules.transportation.Tube;
 import org.junit.Assert;
 import org.junit.Test;
 

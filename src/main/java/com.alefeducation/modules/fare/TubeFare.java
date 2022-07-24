@@ -1,9 +1,8 @@
-package Fare.TubeFare;
-
-import Fare.LocationCanNotBeEmptyException;
-import Fare.StationNotFoundException;
+package main.java.com.alefeducation.modules.fare;
 
 import java.util.HashMap;
+import main.java.com.modules.fare.LocationCanNotBeEmptyException;
+import main.java.com.modules.fare.StationNotFoundException;
 
 public class TubeFare {
 

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo "Git Hook Pre-Push Executed" 
+echo "Running Tests"
+
+mvn -e --batch-mode --update-snapshots verify

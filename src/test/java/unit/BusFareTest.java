@@ -1,5 +1,5 @@
-import Fare.BusFare.BusFare;
-import Fare.LocationCanNotBeEmptyException;
+import main.java.com.alefeducation.modules.fare.BusFare;
+import main.java.com.modules.fare.LocationCanNotBeEmptyException;
 import org.junit.Assert;
 import org.junit.Test;
 

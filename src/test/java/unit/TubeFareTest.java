@@ -1,6 +1,8 @@
-import Fare.LocationCanNotBeEmptyException;
-import Fare.StationNotFoundException;
-import Fare.TubeFare.TubeFare;
+package test.java.unit;
+
+import main.java.com.modules.fare.LocationCanNotBeEmptyException;
+import main.java.com.modules.fare.StationNotFoundException;
+import main.java.com.alefeducation.modules.fare.TubeFare;
 import org.junit.Assert;
 import org.junit.Test;
 

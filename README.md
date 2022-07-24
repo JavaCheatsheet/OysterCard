@@ -1,9 +1,9 @@
 # OysterCard Solution
-The Oyster Card Problem - alefeducation.com
+The Oyster main.java.com.modules.card Problem - alefeducation.com
 
-## Objective - Model A Fare Card System.
+## Objective - Model A main.java.com.modules.fare main.java.com.modules.card System.
 
-Demonstrate a user loading a card with £30, 
+Demonstrate a user loading a main.java.com.modules.card with £30, 
 and taking the following trips, and then 
 viewing the balance.
 
@@ -12,14 +12,14 @@ viewing the balance.
 - Tube Earl’s court to Hammersmith
 
 When the user passes through the inward barrier 
-at the station, their oyster card is charged 
-the maximum fare.
+at the station, their oyster main.java.com.modules.card is charged 
+the maximum main.java.com.modules.fare.
 
 When they pass out of the barrier at the exit 
-station, the fare is calculated and the maximum
-fare transaction removed and replaced with the 
+station, the main.java.com.modules.fare is calculated and the maximum
+main.java.com.modules.fare transaction removed and replaced with the 
 real transaction (in this way, if the user doesn’t 
-swipe out, they are charged the maximum fare).
+swipe out, they are charged the maximum main.java.com.modules.fare).
 
 All bus journeys are charged at the same price.
 Any bus journey - £1.80
@@ -30,7 +30,7 @@ Earl’s Court - 1, 2
 Wimbledon - 3
 Hammersmith - 2
 
-Transportation Fare
+main.java.com.modules.transportation main.java.com.modules.fare
 Anywhere in Zone 1 - £2.50
 Any one zone outside zone 1 - £2.00
 Any two zones including zone 1 - £3.00
@@ -42,13 +42,13 @@ Any bus journey - £1.80
 What are the interacting entities?
 
 Note - I am assuming myself as a traveller
-who will be using these means of transportation
+who will be using these means of main.java.com.modules.transportation
 travelling around different locations using
-the card.
+the main.java.com.modules.card.
 
 For this the most important thing would be 
-the card.
-1. Card
+the main.java.com.modules.card.
+1. main.java.com.modules.card
 
 Second would be locations
 2. Location
@@ -60,7 +60,7 @@ zones based on which fares vary.
 Also, important are the modes of transportations.
 Tube (or Metro) and Buses are two services 
 people can use.
-4. Transportation
+4. main.java.com.modules.transportation
 
 Travelling from a location to another are defined
 by which zone those locations fall while Tube is
@@ -69,7 +69,7 @@ journey regardless of zones. By this I assume that
 it does not matter if I travel 1km or 50km.
 
 The first thing I need to do before being able 
-to travel is have enough balance in my card to 
+to travel is have enough balance in my main.java.com.modules.card to 
 be able to use any of the services, use the Tube 
 or the Bus.
 
@@ -78,16 +78,16 @@ the Bus which is £1.8.
 
 So the first feature of the system would be I
 to should be able to load balance. The balance
-would be deducted as per fare. 
+would be deducted as per main.java.com.modules.fare. 
 
-Indeed, at the very first, I need to get a card 
+Indeed, at the very first, I need to get a main.java.com.modules.card 
 but that is not the requirement at the moment.
 
 The second feature of the system is calculating
 the fair. This should be the core business logic.
 And we will focus more here and start from here.
 
-## Model Tube Fare System
+## Model Tube main.java.com.modules.fare System
 The complex calculations is when I use the 
 Tube to travel. So first let's assume I can 
 only travel via Tube. And to design this 
@@ -95,30 +95,30 @@ system we need understand what are the charges
 and payment process.
 "
 When the user passes through the inward barrier
-at the station, their oyster card is charged
-the maximum fare.
+at the station, their oyster main.java.com.modules.card is charged
+the maximum main.java.com.modules.fare.
 
 When they pass out of the barrier at the exit
-station, the fare is calculated and the maximum
-fare transaction removed and replaced with the
+station, the main.java.com.modules.fare is calculated and the maximum
+main.java.com.modules.fare transaction removed and replaced with the
 real transaction (in this way, if the user doesn’t
-swipe out, they are charged the maximum fare).
+swipe out, they are charged the maximum main.java.com.modules.fare).
 "
 
 From the given requirement, when ever I check
-into the station, the fare is set to maximum which
+into the station, the main.java.com.modules.fare is set to maximum which
 in this case should be £3.20 as fares provided -
 
 Case - "Any three zones - £3.20"
 
 So to use Tube, I must have minimum balance in my
-card. The checking is done while entering a station.
+main.java.com.modules.card. The checking is done while entering a station.
 And If the balance is low I would not be able to
 enter and use the Tube.
 
-The card is charged the actual amount after I 
+The main.java.com.modules.card is charged the actual amount after I 
 check out of the station. If I don't swipe the 
-card while checking out, the card will be charged
+main.java.com.modules.card while checking out, the main.java.com.modules.card will be charged
 the maximum. This check can be done either at 
 the EOD or when the user checks in next time.
 For now, we will deduce when the user checks-in
@@ -134,9 +134,9 @@ checkin.
 
 The story would be - As a user, I should be able
 to travel from Holborn station to Earl's Court
-station, given I have minimum balance in my card.
+station, given I have minimum balance in my main.java.com.modules.card.
 
-### Calculating Fare
+### Calculating main.java.com.modules.fare
 The charge rate is defined based on which zones
 I am travelling to, from and to.
 
@@ -204,7 +204,7 @@ through Zone 2 passing along stations in this Zone.
 Tube reaches Zone 3 and get off at Wimbledon station.
 
 ### Case - Any one zone outside zone 1
-The understanding is this  - Fare to travel 
+The understanding is this  - main.java.com.modules.fare to travel 
 in any other zone (with in that Zone) except 
 Zone 1 is £2.00.
 
@@ -278,7 +278,7 @@ would go through the ones with lower number."
 
 3. Choose among fares when they become ambiguous -
 The system should favour the Customer where more 
-than one fare is possible for a given journey.
+than one main.java.com.modules.fare is possible for a given journey.
 
 Verify test cases.
 
@@ -310,38 +310,38 @@ if ( checkOutStation == "Earlscourt"
     return new int[] { 1, 1 };
 `
 
-The fare system is designed only to check Tube
+The main.java.com.modules.fare system is designed only to check Tube
 travellers travelling in ascending order only.
 
 **Note:**
 **Tube does not go backward.**
 
-## Enable Bus Fare
-We will add bus fare system.
+## Enable Bus main.java.com.modules.fare
+We will add bus main.java.com.modules.fare system.
 
 `Any/All bus journey £1.80`
 
 Bus travel just concerns checkin and checkout.
 There is no specific detail provided for max
-fare for bus so as a convenience of the Customer,
+main.java.com.modules.fare for bus so as a convenience of the Customer,
 if in case of the Customer forgets to checkout,
 £1.80 will be charged in the next checkin.
 
 
-## Add Card Service
-As a Oyster Card holder, I should be able to 
+## Add main.java.com.modules.card Service
+As a Oyster main.java.com.modules.card holder, I should be able to 
 pay the fares of my journeys. 
 
-Card is subsystem what will keep track of 
+main.java.com.modules.card is subsystem what will keep track of 
 the transactions. 
 
-I can add money to my card(manual) and the amount is
+I can add money to my main.java.com.modules.card(manual) and the amount is
 reduced as per travel (when the checkout is complete or
 while checkin if did I not checkout last time, automated).
 
 ## Simulate Bus Checkin-Checkout
 
-Bus has a device to read the card.
+Bus has a device to read the main.java.com.modules.card.
 
 Simulate "328 bus from Earl’s Court to Chelsea"
 
@@ -349,22 +349,22 @@ Steps:
 1. Checkin in the bus
    1. Machine check if I have minimum balance 1.80 
    2. If not, I can not checkin
-   3. Set the status to checked-in the card
+   3. Set the status to checked-in the main.java.com.modules.card
 2. Checkout 
-   1. Deduct the amount in the card
-   2. Set the status to checked-out in the card
+   1. Deduct the amount in the main.java.com.modules.card
+   2. Set the status to checked-out in the main.java.com.modules.card
 
-## Tube Fare Implementation Review
+## Tube main.java.com.modules.fare Implementation Review
 Response from Alef-
 `You should consider Earl's Court both in zone 1
 and 2, so your example for "Any one zone outside 
 zone 1" would be incorrect, same with the first 
 example for "Any two zones excluding zone 1". 
 
-On the last fare, although it's correct, I just 
+On the last main.java.com.modules.fare, although it's correct, I just 
 wanted to emphasize that any three zones means 
 from anywhere to anywhere, it's like a fallback 
-fare or the worst case scenario.`
+main.java.com.modules.fare or the worst case scenario.`
 
 Fixed an assumption and the failing test case 
 based on the response.
@@ -373,7 +373,7 @@ based on the response.
 When I checkin, system just needs to know
 where I checked in, which station. 
 
-Why station? Because unlike Bus, Tube fare
+Why station? Because unlike Bus, Tube main.java.com.modules.fare
 is different based on Zones.
 
 I am also assuming that devices understands
@@ -389,9 +389,9 @@ Note: Need to add these points while submitting
 the solution.
 
 But in case of BUS, there is only one device.
-If I tap-in the Card second time when should 
+If I tap-in the main.java.com.modules.card second time when should 
 the system understand I checked-in or out?
-For example, If I tap the card twice consecutively
+For example, If I tap the main.java.com.modules.card twice consecutively
 while I checkin, should the system assume that
 I checkout? Should the system charge for that?
 Or charge only when the Bus moves and to another
@@ -431,3 +431,12 @@ minimum balance on Bus £3.20 too.
 
 
 
+# Resource
+- https://www.baeldung.com/maven
+- https://www.baeldung.com/junit-run-from-command-line
+- https://www.baeldung.com/executable-jar-with-maven
+- https://www.baeldung.com/maven-local-repository
+- https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+- https://www.javacodegeeks.com/2014/03/automated-bug-finding-with-git-bisect-and-mvn-test.html
+- https://www.dev2qa.com/build-and-run-java-project-with-maven
+- https://www.baeldung.com/maven-run-from-another-directory

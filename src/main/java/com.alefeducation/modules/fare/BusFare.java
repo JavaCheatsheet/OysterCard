@@ -1,6 +1,7 @@
-package Fare.BusFare;
+package main.java.com.alefeducation.modules.fare;
 
-import Fare.LocationCanNotBeEmptyException;
+import main.java.com.modules.fare.LocationCanNotBeEmptyException;
+import main.java.com.modules.fare.StationNotFoundException;
 
 public class BusFare {
     private String checkIn;

@@ -1,8 +1,8 @@
-package Transportation.Tube;
+package main.java.com.alefeducation.modules.transportation;
 
-import Card.Card;
-import Card.BelowMinimumBalanceException;
-import Fare.TubeFare.TubeFare;
+import main.java.com.alefeducation.modules.card.BelowMinimumBalanceException;
+import main.java.com.alefeducation.modules.card.Card;
+import main.java.com.alefeducation.modules.fare.TubeFare;
 
 public class Tube {
     private Card card;

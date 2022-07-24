@@ -1,4 +1,4 @@
-package Card;
+package main.java.com.alefeducation.modules.card;
 
 public class Card {
     private int cardNumber;

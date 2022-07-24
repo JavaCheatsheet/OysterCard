@@ -1,7 +1,7 @@
-package Transportation.Bus;
+package main.java.com.alefeducation.modules.transportation;
 
-import Card.Card;
-import Card.BelowMinimumBalanceException;
+import main.java.com.alefeducation.modules.card.BelowMinimumBalanceException;
+import main.java.com.alefeducation.modules.card.Card;
 
 public class Bus {
     private Card card;

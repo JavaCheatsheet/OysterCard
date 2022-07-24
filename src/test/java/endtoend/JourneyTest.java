@@ -1,6 +1,8 @@
-import Card.Card;
-import Transportation.Bus.Bus;
-import Transportation.Tube.Tube;
+package test.java.endtoend;
+
+import main.java.com.alefeducation.modules.card.Card;
+import main.java.com.alefeducation.modules.transportation.Bus;
+import main.java.com.alefeducation.modules.transportation.Tube;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -22,7 +24,7 @@ import org.junit.Test;
  * Any three zones £3.20
  * Any bus journey £1.80
  *
- * The maximum possible fare is therefore £3.20.
+ * The maximum possible main.java.com.modules.fare is therefore £3.20.
  */
 public class JourneyTest {
 
