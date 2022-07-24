@@ -1,5 +1,4 @@
-package Fare.BusFare;
-
+import Fare.BusFare.BusFare;
 import Fare.LocationCanNotBeEmptyException;
 import org.junit.Assert;
 import org.junit.Test;

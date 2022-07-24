@@ -357,7 +357,8 @@ Steps:
 ## Tube Fare Implementation Review
 Response from Alef-
 `You should consider Earl's Court both in zone 1
-and 2, so your example for "Any one zone outside zone 1" would be incorrect, same with the first 
+and 2, so your example for "Any one zone outside 
+zone 1" would be incorrect, same with the first 
 example for "Any two zones excluding zone 1". 
 
 On the last fare, although it's correct, I just 
@@ -399,5 +400,34 @@ bus has for checking-in and out.
 
 For now we assume that - 
 THE BUS HAS TWO DEVICES FOR CHECKIN AND OUT.
+
+## Journey
+Some point to note:
+1. User can travel in the direction from Zone 1 
+to Zone 3 (for now).
+2. All the stations comes one after another.
+3. There are separate devices or the device understands 
+either the user checked-in or checked-out.
+
+### Requirement Demo
+Demonstrate a user loading a card with £30, 
+and taking the following trips, and then 
+viewing the balance.
+
+1. Tube Holborn to Earl’s Court
+2. 328 bus from Earl’s Court to Chelsea
+3. Tube Earl’s court to Hammersmith
+
+While implementing this there was an interesting 
+issue raised.
+
+What if I didnot checkout of the Tube and checkin
+on the Bus? And similarly, didn't checkout of bus
+and checkin on Tube? Does the system need to store
+such information? Well for now, we will make the 
+absense of checkout £3.20. This leads us to making 
+minimum balance on Bus £3.20 too.
+
+
 
 

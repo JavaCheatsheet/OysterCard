@@ -1,5 +1,5 @@
-package Card;
-
+import Card.Card;
+import Card.BelowMinimumBalanceException;
 import org.junit.Assert;
 import org.junit.Test;
 

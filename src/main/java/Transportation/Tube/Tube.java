@@ -52,6 +52,8 @@ public class Tube {
             this.card.setCheckedIn(false);
             card.charge(fare);
 
+            System.out.println(CHECKOUT_SUCCESSFUL);
+
         } catch (Exception e ) {
             System.out.println(e.getMessage());
         }

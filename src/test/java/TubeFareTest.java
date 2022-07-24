@@ -1,7 +1,6 @@
-package Fare.TubeFare;
-
 import Fare.LocationCanNotBeEmptyException;
 import Fare.StationNotFoundException;
+import Fare.TubeFare.TubeFare;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -30,10 +29,21 @@ import org.junit.Test;
 public class TubeFareTest {
 
     @Test
-    // Any two zones excluding zone 1 £2.25
-    public void givenMinimumBalanceTravelFromEarlscourtToWimbledon()
+    // Any two zones including zone 1 £3.00
+    public void givenMinimumBalance_TravelFromEarlsCourt_ToHammersmith()
             throws LocationCanNotBeEmptyException {
-        TubeFare fare = new TubeFare("Earlscourt", "Wimbledon");
+        TubeFare fare = new TubeFare("Earlscourt", "Hammersmith");
+        double expectedTubeFare = fare.getFair();
+        double epsilon = 0.000001d;
+
+        Assert.assertEquals(3.00, expectedTubeFare, epsilon);
+    }
+
+    @Test
+    // Any two zones excluding zone 1 £2.25
+    public void givenMinimumBalance_TravelFromBugszilla_ToWimbledon()
+            throws LocationCanNotBeEmptyException {
+        TubeFare fare = new TubeFare("Bugszilla", "Wimbledon");
         double expectedTubeTubeFare = fare.getFair();
         double epsilon = 0.000001d;
 

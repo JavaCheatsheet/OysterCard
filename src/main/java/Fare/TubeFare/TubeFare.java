@@ -60,6 +60,7 @@ public class TubeFare {
         HashMap<String, Integer> zoneStation = new HashMap<>();
         zoneStation.put("Holborn", 1);
         zoneStation.put("Earlscourt", 2);
+        zoneStation.put("Bugszilla", 2);
         zoneStation.put("Hammersmith", 2);
         zoneStation.put("Toonsvil", 3);
         zoneStation.put("Wimbledon", 3);
@@ -69,6 +70,10 @@ public class TubeFare {
                 && zoneStation.get(checkInStation) < 2 )
                     return new int[] { 1, 1 };
 
+            else if ( checkInStation.equals("Earlscourt")
+            && zoneStation.get(checkInStation) == 2 ) {
+                return new int[] { 1, zoneStation.get(checkInStation) };
+            }
             return new int[] {
                     zoneStation.get(checkInStation),
                     zoneStation.get(checkOutStation)

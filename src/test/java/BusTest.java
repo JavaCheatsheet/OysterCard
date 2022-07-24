@@ -1,7 +1,6 @@
-package Transportation.Bus;
-
 import Card.Card;
 import Card.BelowMinimumBalanceException;
+import Transportation.Bus.Bus;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -38,7 +37,7 @@ public class BusTest {
         Bus bus = new Bus(card);
         bus.checkin();
 
-        double expected = 20 - 1.8;
+        double expected = 20 - 3.2;
 
         Assert.assertTrue(card.getCheckedInStatus());
         Assert.assertEquals(expected, card.getAmount(), epsilon);

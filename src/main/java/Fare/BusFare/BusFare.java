@@ -6,7 +6,7 @@ public class BusFare {
     private String checkIn;
     private String checkOut;
 
-    BusFare( String checkIn, String checkOut ) throws LocationCanNotBeEmptyException {
+    public BusFare( String checkIn, String checkOut ) throws LocationCanNotBeEmptyException {
 
         if ( checkIn.isBlank() || checkIn.isEmpty()
         || checkOut.isBlank() || checkOut.isEmpty() )

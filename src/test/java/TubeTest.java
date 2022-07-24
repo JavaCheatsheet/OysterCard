@@ -1,6 +1,5 @@
-package Transportation.Tube;
-
 import Card.Card;
+import Transportation.Tube.Tube;
 import org.junit.Assert;
 import org.junit.Test;
 
