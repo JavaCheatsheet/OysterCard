@@ -5,54 +5,56 @@ import main.java.com.alefeducation.modules.transportation.Tube;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.UUID;
+
 public class TubeTest {
 
     @Test
     // Any one zone outside zone 1 £2.00
-    public void givenAmount3_CheckinAtToonsvil_CheckoutAtWimbelson(){
-
-        double epsilon = 0.001d;
-
+    public void givenAmount3dot2_CheckinAtToonsvil_CheckoutAtWimbelson(){
         String checkinStation = "Toonsvil";
         String checkoutStation = "Wimbledon";
-        int cardNumber = Integer.MAX_VALUE;
-        Card card = new Card(cardNumber);
-        card.topUp(3.2);
+
+        Card card = new Card(UUID.randomUUID());
+        card.topUp(new BigDecimal(3.2));
 
         Tube tube = new Tube(card);
         tube.checkin(checkinStation);
         tube.checkout(checkoutStation);
-        double remainingBalance = card.getAmount();
 
-        String actualCheckoutStation = tube.getCheckinStation();
-        String actualCheckinStation = tube.getCheckoutStation();
-        double expectedRemaningBalance = 3.2 - 2;
+        BigDecimal expectedAmt = new BigDecimal(3.2)
+                .subtract(new BigDecimal(2))
+                .setScale(2, RoundingMode.HALF_UP);
+        Assert.assertTrue(card.getAmount().equals(expectedAmt));
+
+        String actualCheckoutStation = tube.getCheckin();
+        String actualCheckinStation = tube.getCheckout();
 
         Assert.assertTrue(checkinStation.equals(actualCheckoutStation));
         Assert.assertTrue(checkoutStation.equals(actualCheckinStation));
-        Assert.assertFalse(card.getCheckedInStatus());
-        Assert.assertEquals(expectedRemaningBalance, remainingBalance, epsilon);
+        Assert.assertFalse(card.isCheckin());
+
     }
 
     @Test
-    // Any one zone outside zone 1 £2.00
-    public void givenAmount3_CheckinAtToonsvil(){
-
-        double epsilon = 0.000001d;
-
+    public void givenAmount3dot2_CheckinAtToonsvil(){
         String checkinStation = "Toonsvil";
-        int cardNumber = Integer.MAX_VALUE;
-        Card card = new Card(cardNumber);
-        card.topUp(3.2);
+
+        Card card = new Card(UUID.randomUUID());
+        BigDecimal topup = new BigDecimal(3.2)
+                .setScale(2, RoundingMode.HALF_UP);
+        card.topUp(topup);
+
         Tube tube = new Tube(card);
         tube.checkin(checkinStation);
 
-        double expected = 3.20;
-        String actual = tube.getCheckinStation();
+//        String actualCheckinStation = tube.getCheckin();
+//        Assert.assertTrue(checkinStation.equals(actualCheckinStation));
+//        Assert.assertTrue(card.isCheckin());
 
-        Assert.assertTrue(checkinStation.equals(actual));
-        Assert.assertTrue(card.getCheckedInStatus());
-        Assert.assertEquals(expected, card.getAmount(), epsilon);
+        Assert.assertTrue(topup.equals(card.getAmount()));
     }
 
 }

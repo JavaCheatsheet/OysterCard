@@ -1,37 +1,37 @@
+package test.java.unit;
+
 import main.java.com.alefeducation.modules.card.Card;
 import main.java.com.alefeducation.modules.card.BelowMinimumBalanceException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.UUID;
+
 public class CardTest {
 
     @Test
-    public void givenCardHasNoBalanceTopUp30Pounds() {
-        double epsilon = 0.000001d;
-        Card wallet = new Card(Integer.MAX_VALUE);
-        double expectedAmount = wallet.topUp(30);
-        Assert.assertEquals(30, expectedAmount, epsilon);
-    }
-
-    @Test
     public void givenCardHas20Charge3() {
-        double epsilon = 0.000001d;
-        Card wallet = new Card(Integer.MAX_VALUE);
-        wallet.topUp(20);
-        wallet.charge(3);
-        double expectedAmount = wallet.getAmount();
-        Assert.assertEquals(17, expectedAmount, epsilon);
+        Card card = new Card(UUID.randomUUID());
+        BigDecimal expectedAmount = new BigDecimal(20)
+                .subtract(new BigDecimal(3))
+                .setScale(2, RoundingMode.HALF_UP);
+        card.topUp(new BigDecimal(20));
+        card.charge(new BigDecimal(3));
+
+        Assert.assertTrue(card.getAmount().equals(expectedAmount));
     }
 
     @Test
-    public void givenCardHasMinAmtThrowBelowMinException() {
-        double epsilon = 0.000001d;
-        Card wallet = new Card(Integer.MAX_VALUE);
-        wallet.topUp(2);
+    public void givenCardHasMinAmt_ThrowBelowMinException() {
+        Card card = new Card(UUID.randomUUID());
+        BigDecimal expectedAmount = new BigDecimal(0);
+        card.topUp(expectedAmount);
 
         Exception exception = Assert.assertThrows(
             BelowMinimumBalanceException.class, () -> {
-                    wallet.charge(3);
+                    card.charge(new BigDecimal(3));
             });
 
         String expectedMessage = "Your account does not have enough balance!";
@@ -39,4 +39,17 @@ public class CardTest {
         System.out.println(actualMessage);
         Assert.assertTrue(actualMessage.contains(expectedMessage));
     }
+
+    @Test
+    public void givenCardHasNoBalanceTopUp30Pounds() {
+        Card card = new Card(UUID.randomUUID());
+        BigDecimal expectedAmt = new BigDecimal(30)
+                .setScale(2, RoundingMode.HALF_UP);
+        card.topUp(expectedAmt);
+
+        BigDecimal actualAmt = card.getAmount();
+
+        Assert.assertTrue(actualAmt.equals(expectedAmt));
+    }
+
 }

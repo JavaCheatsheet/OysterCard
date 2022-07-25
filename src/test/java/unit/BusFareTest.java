@@ -1,3 +1,5 @@
+package test.java.unit;
+
 import main.java.com.alefeducation.modules.fare.BusFare;
 import main.java.com.modules.fare.LocationCanNotBeEmptyException;
 import org.junit.Assert;

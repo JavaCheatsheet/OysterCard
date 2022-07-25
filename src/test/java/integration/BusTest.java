@@ -6,15 +6,16 @@ import main.java.com.alefeducation.modules.transportation.Bus;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.UUID;
+
 public class BusTest {
     @Test
     public void givenBalance2_UserDidNtCheckout_ChecksInFails() {
-        double epsilon = 0.000001d;
-
-        int cardNumber = Integer.MAX_VALUE;
-        Card card = new Card(cardNumber);
-        card.topUp(2);
-        card.setCheckedIn(true);
+        Card card = new Card(UUID.randomUUID());
+        card.topUp(new BigDecimal(2));
+        card.setCheckin(true);
 
         Bus bus = new Bus(card);
         Exception exception = Assert.assertThrows(
@@ -29,47 +30,42 @@ public class BusTest {
 
     @Test
     public void givenBalance20_UserDidNtCheckout_ChecksInAgain() {
-        double epsilon = 0.000001d;
-
-        int cardNumber = Integer.MAX_VALUE;
-        Card card = new Card(cardNumber);
-        card.topUp(20);
-        card.setCheckedIn(true);
+        Card card = new Card(UUID.randomUUID());
+        card.topUp(new BigDecimal(20));
+        card.setCheckin(true);
 
         Bus bus = new Bus(card);
         bus.checkin();
 
-        double expected = 20 - 3.2;
+        BigDecimal expectedAmt = new BigDecimal(20).subtract(
+                new BigDecimal(3.2))
+                .setScale(2, RoundingMode.HALF_UP);
 
-        Assert.assertTrue(card.getCheckedInStatus());
-        Assert.assertEquals(expected, card.getAmount(), epsilon);
+        Assert.assertTrue(card.isCheckin());
+        Assert.assertTrue(card.getAmount().equals(expectedAmt));
     }
 
     @Test
     public void givenAmount20_CheckoutSuccessful() {
-        double epsilon = 0.000001d;
-
-        int cardNumber = Integer.MAX_VALUE;
-        Card card = new Card(cardNumber);
-        card.topUp(20);
+        Card card = new Card(UUID.randomUUID());
+        card.topUp(new BigDecimal(20));
 
         Bus bus = new Bus(card);
         bus.checkin();
-
-        double expected = 20 - 1.8;
         bus.checkout();
-        double actual = card.getAmount();
 
-        Assert.assertFalse(card.getCheckedInStatus());
-        Assert.assertEquals(expected, actual, epsilon);
+        BigDecimal expectedAmt = new BigDecimal(20)
+                .subtract(new BigDecimal(1.8))
+                .setScale(2, RoundingMode.HALF_UP);
+
+        Assert.assertFalse(card.isCheckin());
+        Assert.assertTrue(card.getAmount().equals(expectedAmt));
     }
 
     @Test
     public void givenAmount0_CheckinFails() {
-        double epsilon = 0.000001d;
-        int cardNumber = Integer.MAX_VALUE;
-        Card card = new Card(cardNumber);
-        card.topUp(0);
+        Card card = new Card(UUID.randomUUID());
+        card.topUp(new BigDecimal(0));
 
         Bus bus = new Bus(card);
 
@@ -83,17 +79,5 @@ public class BusTest {
         Assert.assertTrue(actualMessage.contains(Bus.CHECKIN_FAIL));
     }
 
-    @Test
-    public void givenMinBalanceCheckinSuccessful() {
-        double epsilon = 0.000001d;
-
-        int cardNumber = Integer.MAX_VALUE;
-        Card card = new Card(cardNumber);
-        card.topUp(20);
-
-        Bus bus = new Bus(card);
-        bus.checkin();
-
-        Assert.assertTrue(card.getCheckedInStatus());
-    }
 }
+

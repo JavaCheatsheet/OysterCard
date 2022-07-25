@@ -88,7 +88,6 @@ The second feature of the system is calculating
 the fair. This should be the core business logic.
 And we will focus more here and start from here.
 
-
 ## Model Tube main.java.com.modules.fare System
 The complex calculations is when I use the 
 Tube to travel. So first let's assume I can 
@@ -478,6 +477,65 @@ multiple stages.
 - Execute: `sudo docker run -it --rm oystercard:latest`
 
 
+## Structural Refactoring
+So we have a prototype functional and logics in
+place. Let's get back to refactoring.
+
+The primary models that has been identified are
+1. Card
+2. Fare
+3. Transportation
+
+### Card
+id: Primary key
+
+UUID: UUID - Card holders unique id
+
+checkedin: Boolean
+
+amount: Double 
+Is it good to use Double to represent money in 
+Java?
+
+The BigDecimal is the most accurate way to do
+arbitrary precision calculations.
+
+`If you are using double you run into trouble
+Mainly because of the fact, that double (Wrapper: 
+Double) is a double-precision 64-bit IEEE 754 
+floating point. It's not meant for keeping exact 
+decimal values.`
+
+More information at Resource > BigDecimal.
+
+CREATE DATABASE mydatabase CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+### Fare
+Classes BusFare and TubeFare seems to have two
+common behaviours:
+1. Constructor
+2. getFare
+
+They also have the same properties:
+- private String checkInStation;
+- private String checkOutStation;
+- private final String EMPTY_LOCATION
+
+So these two classes can be merged via a parent
+class Fare and context bounded via IFare interface.
+
+Stations and Zones map is hardcoded. We might 
+want to provide a datasource. For now a CSV.
+
+### Transportation
+Similarly for transportation types, bus and tube,
+their behaviours and properties can be combined
+via Transport Class and context bounded via 
+ITransportInterface.
+
+
+
+
 # Resource
 - https://www.baeldung.com/maven
 - https://www.baeldung.com/junit-run-from-command-line
@@ -490,9 +548,16 @@ multiple stages.
 - https://snyk.io/blog/best-practices-to-build-java-containers-with-docker
 - https://docs.docker.com/language/java
 - https://stackify.com/guide-docker-java
+- https://dzone.com/articles/working-money-java
+- https://github.com/JavaMoney/javamoney-examples/blob/master/web/javamoney-payment-cdi-event/src/main/java/org/javamoney/examples/cdi/payment/beans/PaymentBean.java
+- https://docs.oracle.com/javaee/6/tutorial/doc/gkhic.html
+- https://docs.oracle.com/javaee/6/tutorial/doc/gkhpa.html
+- https://docs.oracle.com/javaee/6/tutorial/doc/gjbnr.html
+- https://javaranch.com/journal/2003/07/MoneyInJava.html
+- https://www.geeksforgeeks.org/banking-transaction-system-using-java
 
 
-### Docker Permission
+## Docker Permission
 `docker ps`
 `Got permission denied while trying to connect 
 to the Docker daemon socket at unix:///var/run/docker.sock
@@ -506,3 +571,89 @@ Permanent solution
 sudo usermod -aG docker $USER
 sudo reboot
 `
+
+## BigDecimal
+The BigDecimal is the most accurate way to do 
+arbitrary precision calculations. In most business 
+applications, it is well worth the cost of the 
+overhead of working with objects for the added 
+accuracy you get with the BigDecimal class.
+
+Constructors of BigDecimal
+BigDecimal has four constructors but the one you 
+will want to use most is the one that takes a String. 
+
+If we ran our test program using the constructor that 
+takes a double, we would still get the wrong answer 
+if we used float constants:
+`
+BigDecimal a1 = new BigDecimal(8250325.12f);
+BigDecimal b1 = new BigDecimal(4321456.31f);
+`
+
+The reason this doesn't work correctly is that the float 
+constants will undergo loss of precision before they are 
+sent to the constructor of the BigDecimal. Using the String 
+constructor will always allow the BigDecimal to represent 
+exactly the number you want.
+
+Methods of BigDecimal
+BigDecimal supports add, subtract, multiply, and divide. 
+The calculated scale for add and subtract is simply the 
+larger scale of the two numbers you are working with. 
+The calculated scale for multiply is the sum of the scale 
+of the two numbers. 
+The scale of the divide method is either the scale 
+you specify in the method or the scale of the current 
+BigDecimal object depending on which overloaded version 
+of the BigDecimal you are using. 
+
+The divide also requires that you specify a rounding 
+method. `ROUND_HALF_UP` is the standard arithmetic 
+rounding method used most often. Lets take a look at 
+this code fragment:
+`
+BigDecimal a1 = new BigDecimal("2");
+BigDecimal b1 = new BigDecimal("3");
+BigDecimal c1 = a1.divide(b1, 9, BigDecimal.ROUND_HALF_UP);
+System.out.println(c1);
+`
+This will print: 0.666666667. Since we specified a 
+scale of 9, we get 9 digits after the decimal point. 
+Since we specified "BigDecimal.ROUND_HALF_UP," we 
+get the last digit mathematically rounded.
+
+BigDecimal supports the use of the compareTo method 
+for comparing values. In most cases you will want 
+to use the compareTo even for equals comparisons 
+because the equals method considers two numbers with 
+the exact same value but different scales to be not 
+equal. In other words, the equals method considers 
+2, 2.0, 2.00, and 2.000 to be different numbers. 
+The compareTo will consider all of them to be equal
+
+
+## Contexts & Dependency Injection (CDI) for Java
+Java Enterprise Edition has many features that 
+really stand out. One of the best is the event 
+mechanism, which is part of the Contexts & 
+Dependency Injection for Java specification. 
+
+Events have been present in Java EE for a long 
+time. The design of the events mechanism is 
+extremely clean, and learning how to use events 
+is therefore very simple. This overview is aimed 
+at developers who are not familiar with the event 
+mechanism and want to get to know the basics. 
+
+Advanced features of CDI 2.0, like Asynchronous 
+events, are not covered. You will learn to:
+- Fire specific events.
+- Use event qualifier.
+- Observe events fired during transactions.
+- Configure even observer bean instantiation.
+  
+https://dzone.com/articles/an-overview-of-cdi-events
+
+Note: CDI use case seems to be in Java Beans, that 
+technology is not used much nowadays. Need to research.

@@ -3,6 +3,8 @@ package main.java.com.alefeducation.modules.transportation;
 import main.java.com.alefeducation.modules.card.BelowMinimumBalanceException;
 import main.java.com.alefeducation.modules.card.Card;
 
+import java.math.BigDecimal;
+
 public class Bus {
     private Card card;
     public static final String CHECKIN_SUCCESSFUL = "Check In Successful!";
@@ -16,14 +18,16 @@ public class Bus {
 
     public void checkin() {
 
-        if ( card.getCheckedInStatus()
-                && this.card.getAmount() > 3.2 ) {
-            this.card.charge(3.2);
+        if ( card.isCheckin()
+                && this.card.hasMinimumBalance(
+                        this.card.MINIMUM_BALANCE)) {
+            this.card.charge(this.card.MINIMUM_BALANCE);
             System.out.println(CHECKOUT_DUE);
         }
 
-        if ( this.card.getAmount() > 3.2 ) {
-            this.card.setCheckedIn(true);
+        if ( this.card.hasMinimumBalance(
+                this.card.MINIMUM_BALANCE )) {
+            this.card.setCheckin(true);
             System.out.println(CHECKIN_SUCCESSFUL);
 
         } else
@@ -31,8 +35,8 @@ public class Bus {
     }
 
     public void checkout() {
-        this.card.setCheckedIn(false);
-        this.card.charge(1.8);
+        this.card.setCheckin(false);
+        this.card.charge(new BigDecimal(1.8));
         System.out.println(CHECKOUT_SUCCESSFUL);
     }
 }

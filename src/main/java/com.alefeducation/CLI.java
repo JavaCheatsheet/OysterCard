@@ -4,11 +4,14 @@ import main.java.com.alefeducation.modules.transportation.Tube;
 import main.java.com.alefeducation.modules.card.Card;
 import main.java.com.alefeducation.modules.transportation.Bus;
 
+import java.math.BigDecimal;
+import java.util.UUID;
+
 public class CLI {
     public static void main(String args[]) {
-        int cardNumber = Integer.MAX_VALUE;
-        Card card = new Card(cardNumber);
-        card.topUp(30);
+
+        Card card = new Card(UUID.randomUUID());
+        card.topUp(new BigDecimal(30));
 
         System.out.println("Account Balance: "
                 + card.getAmount());

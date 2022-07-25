@@ -1,41 +1,60 @@
 package main.java.com.alefeducation.modules.card;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.UUID;
+
 public class Card {
-    private int cardNumber;
-    private boolean checkedIn;
-    private double amount = 0.0;
-    private final double MINIMUM_BALANCE = 3.20;
+    protected UUID cardNumber;
+    protected boolean checkin = false;
+    protected BigDecimal amount = new BigDecimal(3.20);
+    public final BigDecimal MINIMUM_BALANCE = new BigDecimal(3.20)
+            .setScale(2, RoundingMode.HALF_UP);
 
-    public Card(int cardNumber) {
-        this.cardNumber = cardNumber;
+    public Card(UUID uuid) {
+        cardNumber = uuid;
+
+        // Fetch real data when it is stored
+        amount = new BigDecimal(0);
     }
 
-    public double topUp(double topUpAmount) {
-        return this.amount += topUpAmount;
+    public void topUp(BigDecimal topUpAmount) {
+        amount = amount.add(topUpAmount);
     }
 
-    public void charge(double fare) {
+    public void charge(BigDecimal fare) {
 
         if ( hasMinimumBalance(fare) )
-            this.amount -= fare;
+            amount = amount.subtract(fare);
         else
             throw new BelowMinimumBalanceException(
                     "Your account does not have enough balance!");
     }
 
-    private boolean hasMinimumBalance(double fare) {
-        return  this.amount < fare ? false : true;
+    public boolean hasMinimumBalance(BigDecimal fare) {
+        return  amount.compareTo(fare) >= 0 ? true : false;
     }
 
-    public void setCheckedIn(boolean checkin){
-        this.checkedIn = checkin;
+    public void setCheckin(boolean checkin){
+        this.checkin = checkin;
     }
 
-    public double getAmount() {
-        return this.amount;
+    public boolean isCheckin(){
+        return this.checkin;
     }
 
-    public boolean getCheckedInStatus(){
-        return this.checkedIn;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
+
+    public BigDecimal getAmount() {
+        return amount.setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public UUID createCard(){
+        setAmount(MINIMUM_BALANCE);
+        cardNumber = UUID.randomUUID();
+        return cardNumber;
+    }
+
 }
