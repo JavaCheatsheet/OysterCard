@@ -1,4 +1,6 @@
-package main.java.com.alefeducation.modules.card;
+package core.card;
+
+import core.exception.BelowMinimumBalanceException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

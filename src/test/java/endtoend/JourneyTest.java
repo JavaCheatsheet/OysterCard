@@ -1,8 +1,9 @@
 package test.java.endtoend;
 
-import main.java.com.alefeducation.modules.card.Card;
-import main.java.com.alefeducation.modules.transportation.Bus;
-import main.java.com.alefeducation.modules.transportation.Tube;
+import core.card.Card;
+import core.exception.LocationCanNotBeEmptyException;
+import core.transportation.Bus;
+import core.transportation.Tube;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -36,7 +37,8 @@ public class JourneyTest {
 //    1. Tube Holborn to Earl’s Court
 //    2. 328 bus from Earl’s Court to Chelsea
 //    3. Tube Earl’s court to Hammersmith
-    public void given30Pounds_TravelFromHolbornToHammersmith(){
+    public void given30Pounds_TravelFromHolbornToHammersmith()
+            throws LocationCanNotBeEmptyException {
 
         Card card = new Card(UUID.randomUUID());
         card.topUp(new BigDecimal(30));
@@ -48,8 +50,8 @@ public class JourneyTest {
         System.out.println(card.getAmount());
 
         Bus bus = new Bus(card);
-        bus.checkin();
-        bus.checkout();
+        bus.checkin(" Earlscourt");
+        bus.checkout("Chelsea");
 
         System.out.println(card.getAmount());
 

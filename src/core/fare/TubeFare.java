@@ -1,27 +1,19 @@
-package main.java.com.alefeducation.modules.fare;
+package core.fare;
+
+import core.exception.LocationCanNotBeEmptyException;
+import core.exception.StationNotFoundException;
 
 import java.util.HashMap;
-import main.java.com.modules.fare.LocationCanNotBeEmptyException;
-import main.java.com.modules.fare.StationNotFoundException;
 
-public class TubeFare {
+public class TubeFare extends Fare implements IFare {
 
-    private String checkInStation;
-    private String checkOutStation;
-    private final String EMPTY_LOCATION = "Checkin Or Checkout Station Can Not Be Empty!";
-
-    public TubeFare( String checkIn, String checkOut)
+    public TubeFare(String checkin, String checkout)
             throws LocationCanNotBeEmptyException {
-
-        if ( checkIn.isBlank() || checkIn.isEmpty()
-                || checkOut.isBlank() || checkOut.isEmpty() )
-            throw new LocationCanNotBeEmptyException(EMPTY_LOCATION);
-
-        this.checkInStation = checkIn;
-        this.checkOutStation = checkOut;
+        super(checkin, checkout);
     }
 
-    public double getFair() throws StationNotFoundException {
+    public double getFair()
+            throws StationNotFoundException {
         int checkInZone, checkOutZone;
 
         int[] checkInCheckOutZones = getCheckInCheckOutZones();
@@ -55,7 +47,8 @@ public class TubeFare {
         return 3.2;
     }
 
-    public int[] getCheckInCheckOutZones() throws StationNotFoundException {
+    public int[] getCheckInCheckOutZones() 
+            throws StationNotFoundException {
         HashMap<String, Integer> zoneStation = new HashMap<>();
         zoneStation.put("Holborn", 1);
         zoneStation.put("Earlscourt", 2);
@@ -65,17 +58,17 @@ public class TubeFare {
         zoneStation.put("Wimbledon", 3);
 
         try {
-            if ( checkOutStation.equals("Earlscourt")
-                && zoneStation.get(checkInStation) < 2 )
+            if ( getCheckout().equals("Earlscourt")
+                && zoneStation.get(getCheckin()) < 2 )
                     return new int[] { 1, 1 };
 
-            else if ( checkInStation.equals("Earlscourt")
-            && zoneStation.get(checkInStation) == 2 ) {
-                return new int[] { 1, zoneStation.get(checkInStation) };
+            else if ( getCheckin().equals("Earlscourt")
+            && zoneStation.get(getCheckin()) == 2 ) {
+                return new int[] { 1, zoneStation.get(getCheckin())};
             }
             return new int[] {
-                    zoneStation.get(checkInStation),
-                    zoneStation.get(checkOutStation)
+                    zoneStation.get(getCheckin()),
+                    zoneStation.get(getCheckout())
             };
         } catch (NullPointerException e) {
                 throw new StationNotFoundException("Station Not Found!");

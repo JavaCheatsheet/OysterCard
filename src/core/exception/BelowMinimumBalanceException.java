@@ -1,4 +1,4 @@
-package main.java.com.alefeducation.modules.card;
+package core.exception;
 
 public class BelowMinimumBalanceException extends NullPointerException {
     public BelowMinimumBalanceException(String errorMessage) {

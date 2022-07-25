@@ -1,7 +1,7 @@
 package test.java.unit;
 
-import main.java.com.alefeducation.modules.card.Card;
-import main.java.com.alefeducation.modules.card.BelowMinimumBalanceException;
+import core.card.Card;
+import core.exception.BelowMinimumBalanceException;
 import org.junit.Assert;
 import org.junit.Test;
 

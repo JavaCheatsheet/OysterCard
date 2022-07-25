@@ -1,8 +1,8 @@
 package test.java.unit;
 
-import main.java.com.modules.fare.LocationCanNotBeEmptyException;
-import main.java.com.modules.fare.StationNotFoundException;
-import main.java.com.alefeducation.modules.fare.TubeFare;
+import core.exception.LocationCanNotBeEmptyException;
+import core.exception.StationNotFoundException;
+import core.fare.TubeFare;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -73,7 +73,7 @@ public class TubeFareTest {
 
         String expectedMessage = "Station Not Found!";
         String actualMessage = exception.getMessage();
-        System.out.println(actualMessage);
+
         Assert.assertTrue(actualMessage.contains(expectedMessage));
     }
 
@@ -120,7 +120,7 @@ public class TubeFareTest {
 
         TubeFare fare = new TubeFare("Toonsvil", "Wimbledon");
         double expectedTubeFare = fare.getFair();
-        double epsilon = 0.000001d;
+        double epsilon = 0.001d;
 
         Assert.assertEquals(2.00, expectedTubeFare, epsilon);
     }

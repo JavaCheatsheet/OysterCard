@@ -1,9 +1,11 @@
 package test.java.unit;
 
-import main.java.com.alefeducation.modules.fare.BusFare;
-import main.java.com.modules.fare.LocationCanNotBeEmptyException;
+import core.fare.BusFare;
+import core.exception.LocationCanNotBeEmptyException;
 import org.junit.Assert;
 import org.junit.Test;
+
+import static core.Utils.LOCATION_EMPTY;
 
 /**
  *
@@ -19,20 +21,22 @@ import org.junit.Test;
 
 public class BusFareTest {
     @Test
-    public void givenDubaiStationThatDoesNotExistThrowsException() {
+    public void givenCheckinEmpty_ThrowsException() {
         Exception exception = Assert.assertThrows(
-                LocationCanNotBeEmptyException.class, () -> {
-                    BusFare fare = new BusFare("", "Hammersmith");
+                LocationCanNotBeEmptyException.class,
+                () -> {
+                    BusFare fare = new BusFare(
+                            "", "Hammersmith");
                 });
 
-        String expectedMessage = "Checkin Or Checkout Can Not Be Empty!";
         String actualMessage = exception.getMessage();
         System.out.println(actualMessage);
-        Assert.assertTrue(actualMessage.contains(expectedMessage));
+        Assert.assertTrue(actualMessage.contains(LOCATION_EMPTY));
     }
 
     @Test
-    public void givenMinimumBalanceTravelFromEarlscourtToWimbledon() throws LocationCanNotBeEmptyException {
+    public void givenMinimumBalanceTravelFromEarlscourtToWimbledon()
+            throws LocationCanNotBeEmptyException {
         BusFare fare = new BusFare("Earlscourt", "Wimbledon");
         double expectedTubeTubeFare = fare.getFair();
         double epsilon = 0.000001d;

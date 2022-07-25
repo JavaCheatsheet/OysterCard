@@ -1,4 +1,4 @@
-package main.java.com.modules.fare;
+package core.exception;
 
 public class LocationCanNotBeEmptyException extends Exception {
     public LocationCanNotBeEmptyException(String errorMessage) {

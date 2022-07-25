@@ -1,8 +1,9 @@
 package test.java.integration;
 
-import main.java.com.alefeducation.modules.card.Card;
-import main.java.com.alefeducation.modules.card.BelowMinimumBalanceException;
-import main.java.com.alefeducation.modules.transportation.Bus;
+import core.card.Card;
+import core.exception.BelowMinimumBalanceException;
+import core.exception.LocationCanNotBeEmptyException;
+import core.transportation.Bus;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -20,7 +21,7 @@ public class BusTest {
         Bus bus = new Bus(card);
         Exception exception = Assert.assertThrows(
                 BelowMinimumBalanceException.class, () -> {
-                    bus.checkin();
+                    bus.checkin("Toonsvil");
                 });
 
         String actualMessage = exception.getMessage();
@@ -29,13 +30,14 @@ public class BusTest {
     }
 
     @Test
-    public void givenBalance20_UserDidNtCheckout_ChecksInAgain() {
+    public void givenBalance20_UserDidNtCheckout_ChecksInAgain()
+            throws LocationCanNotBeEmptyException {
         Card card = new Card(UUID.randomUUID());
         card.topUp(new BigDecimal(20));
         card.setCheckin(true);
 
         Bus bus = new Bus(card);
-        bus.checkin();
+        bus.checkin("Toonsvil");
 
         BigDecimal expectedAmt = new BigDecimal(20).subtract(
                 new BigDecimal(3.2))
@@ -46,13 +48,14 @@ public class BusTest {
     }
 
     @Test
-    public void givenAmount20_CheckoutSuccessful() {
+    public void givenAmount20_CheckoutSuccessful()
+            throws LocationCanNotBeEmptyException {
         Card card = new Card(UUID.randomUUID());
         card.topUp(new BigDecimal(20));
 
         Bus bus = new Bus(card);
-        bus.checkin();
-        bus.checkout();
+        bus.checkin("Toonsvil");
+        bus.checkout("Wimbledon");
 
         BigDecimal expectedAmt = new BigDecimal(20)
                 .subtract(new BigDecimal(1.8))
@@ -70,8 +73,9 @@ public class BusTest {
         Bus bus = new Bus(card);
 
         Exception exception = Assert.assertThrows(
-                BelowMinimumBalanceException.class, () -> {
-                    bus.checkin();
+                BelowMinimumBalanceException.class,
+                () -> {
+                    bus.checkin("Toonsvil");
                 });
 
         String actualMessage = exception.getMessage();

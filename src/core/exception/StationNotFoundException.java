@@ -1,4 +1,4 @@
-package main.java.com.modules.fare;
+package core.exception;
 
 public class StationNotFoundException extends NullPointerException {
     public StationNotFoundException(String errorMessage) {

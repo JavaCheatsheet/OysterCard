@@ -1,7 +1,8 @@
 package test.java.integration;
 
-import main.java.com.alefeducation.modules.card.Card;
-import main.java.com.alefeducation.modules.transportation.Tube;
+import core.card.Card;
+import core.exception.LocationCanNotBeEmptyException;
+import core.transportation.Tube;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,7 +14,9 @@ public class TubeTest {
 
     @Test
     // Any one zone outside zone 1 £2.00
-    public void givenAmount3dot2_CheckinAtToonsvil_CheckoutAtWimbelson(){
+    public void givenAmount3dot2_CheckinAtToonsvil_CheckoutAtWimbelson()
+            throws LocationCanNotBeEmptyException {
+
         String checkinStation = "Toonsvil";
         String checkoutStation = "Wimbledon";
 
@@ -39,7 +42,8 @@ public class TubeTest {
     }
 
     @Test
-    public void givenAmount3dot2_CheckinAtToonsvil(){
+    public void givenAmount3dot2_CheckinAtToonsvil()
+            throws LocationCanNotBeEmptyException {
         String checkinStation = "Toonsvil";
 
         Card card = new Card(UUID.randomUUID());
