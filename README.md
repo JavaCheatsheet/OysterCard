@@ -1,7 +1,8 @@
 # OysterCard Solution
-The Oyster main.java.com.modules.card Problem - alefeducation.com
 
-## Objective - Model A main.java.com.modules.fare main.java.com.modules.card System.
+The Oyster Card Problem - alefeducation.com
+
+## Objective - Model Fare Card System
 
 Demonstrate a user loading a main.java.com.modules.card with £30, 
 and taking the following trips, and then 
@@ -87,6 +88,7 @@ The second feature of the system is calculating
 the fair. This should be the core business logic.
 And we will focus more here and start from here.
 
+
 ## Model Tube main.java.com.modules.fare System
 The complex calculations is when I use the 
 Tube to travel. So first let's assume I can 
@@ -135,6 +137,7 @@ checkin.
 The story would be - As a user, I should be able
 to travel from Holborn station to Earl's Court
 station, given I have minimum balance in my main.java.com.modules.card.
+
 
 ### Calculating main.java.com.modules.fare
 The charge rate is defined based on which zones
@@ -316,6 +319,7 @@ travellers travelling in ascending order only.
 **Note:**
 **Tube does not go backward.**
 
+
 ## Enable Bus main.java.com.modules.fare
 We will add bus main.java.com.modules.fare system.
 
@@ -338,6 +342,7 @@ the transactions.
 I can add money to my main.java.com.modules.card(manual) and the amount is
 reduced as per travel (when the checkout is complete or
 while checkin if did I not checkout last time, automated).
+
 
 ## Simulate Bus Checkin-Checkout
 
@@ -368,6 +373,7 @@ main.java.com.modules.fare or the worst case scenario.`
 
 Fixed an assumption and the failing test case 
 based on the response.
+
 
 ## Simulate Tube Checkin-Checkout
 When I checkin, system just needs to know
@@ -401,6 +407,7 @@ bus has for checking-in and out.
 For now we assume that - 
 THE BUS HAS TWO DEVICES FOR CHECKIN AND OUT.
 
+
 ## Journey
 Some point to note:
 1. User can travel in the direction from Zone 1 
@@ -408,6 +415,7 @@ to Zone 3 (for now).
 2. All the stations comes one after another.
 3. There are separate devices or the device understands 
 either the user checked-in or checked-out.
+
 
 ### Requirement Demo
 Demonstrate a user loading a card with £30, 
@@ -429,6 +437,45 @@ absense of checkout £3.20. This leads us to making
 minimum balance on Bus £3.20 too.
 
 
+## Execute CLI via Maven
+The following list shows the most important Maven 
+lifecycle phases:
+- validate – checks the correctness of the project
+- compile – compiles the provided source code into 
+binary artifacts
+- test – executes unit tests
+- package – packages compiled code into an archive 
+file
+- integration-test – executes additional tests, 
+which require the packaging
+- verify – checks if the package is valid
+- install – installs the package file into the 
+local Maven repository
+- deploy – deploys the package file to a remote 
+server or repository
+
+Running the CLI
+- Run package: `mvn exec:java`
+- Another way to run the package: `java -jar target/OysterCard-1.0-SNAPSHOT.jar`
+- Build: `mvn clean package`
+- Run tests: `mvn clean test`
+
+
+## Run Unit Test From CLI
+Maven is used as build tool which also helps to
+run unit tests easily.
+
+- Run all tests: `mvn clean test`
+- Run one test class: `mvn test -Dtest=TubeFareTest`
+- Run two test classes: `mvn test -Dtest=TubeFareTest,JourneyTest`
+- Run a specific test function: `mvn test -Dtest=TubeFareTest#givenMinimumBalance_TravelFromEarlsCourt_ToHammersmith`
+
+
+## Containerize Application
+Dockerfile is created to build the images in 
+multiple stages.
+- Build Image: `sudo docker build . -t oystercard`
+- Execute: `sudo docker run -it --rm oystercard:latest`
 
 
 # Resource
@@ -440,3 +487,22 @@ minimum balance on Bus £3.20 too.
 - https://www.javacodegeeks.com/2014/03/automated-bug-finding-with-git-bisect-and-mvn-test.html
 - https://www.dev2qa.com/build-and-run-java-project-with-maven
 - https://www.baeldung.com/maven-run-from-another-directory
+- https://snyk.io/blog/best-practices-to-build-java-containers-with-docker
+- https://docs.docker.com/language/java
+- https://stackify.com/guide-docker-java
+
+
+### Docker Permission
+`docker ps`
+`Got permission denied while trying to connect 
+to the Docker daemon socket at unix:///var/run/docker.sock
+..dial unix /var/run/docker.sock: connect: permission denied`
+
+Temporary resolve, might not work after system reboot.
+`sudo setfacl --modify user:$USER:rw /var/run/docker.sock`
+
+Permanent solution
+`
+sudo usermod -aG docker $USER
+sudo reboot
+`
