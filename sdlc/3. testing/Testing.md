@@ -8,3 +8,9 @@ run unit tests easily.
 - Run one test class: `mvn test -Dtest=TubeFareTest`
 - Run two test classes: `mvn test -Dtest=TubeFareTest,JourneyTest`
 - Run a specific test function: `mvn test -Dtest=TubeFareTest#givenMinimumBalance_TravelFromEarlsCourt_ToHammersmith`
+
+## Auto Test
+Test are run when commit-ed or push-ed via `git hooks`. 
+View git-hooks folder for implementation details.
+
+
