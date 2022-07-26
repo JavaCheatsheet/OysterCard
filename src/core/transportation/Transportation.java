@@ -1,6 +1,6 @@
 package core.transportation;
 
-import core.Utils;
+import core.helper.StringHelper;
 import core.exception.BelowMinimumBalanceException;
 import core.card.Card;
 import core.exception.LocationCanNotBeEmptyException;
@@ -58,7 +58,7 @@ public abstract class Transportation {
 
     public void setCheckin(String location)
             throws LocationCanNotBeEmptyException {
-        Utils.validateLocation(location);
+        StringHelper.validateLocation(location);
         checkin = location;
     }
 
@@ -68,7 +68,7 @@ public abstract class Transportation {
 
     public void setCheckout(String location)
             throws LocationCanNotBeEmptyException {
-        Utils.validateLocation(location);
+        StringHelper.validateLocation(location);
         checkout = location;
     }
 

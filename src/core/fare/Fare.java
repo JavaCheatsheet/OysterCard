@@ -1,6 +1,6 @@
 package core.fare;
 
-import core.Utils;
+import core.helper.StringHelper;
 import core.exception.LocationCanNotBeEmptyException;
 
 public abstract class Fare {
@@ -9,8 +9,8 @@ public abstract class Fare {
 
     public Fare( String checkin, String checkout)
             throws LocationCanNotBeEmptyException {
-        Utils.validateLocation(checkin);
-        Utils.validateLocation(checkout);
+        StringHelper.validateLocation(checkin);
+        StringHelper.validateLocation(checkout);
         this.checkin = checkin;
         this.checkout = checkout;
     }

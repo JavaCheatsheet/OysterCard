@@ -1,8 +1,8 @@
-package core;
+package core.helper;
 
 import core.exception.LocationCanNotBeEmptyException;
 
-public class Utils {
+public class StringHelper {
     public static final String LOCATION_EMPTY = "Location cannot be empty.";
 
     public static void validateLocation(String location)

@@ -5,7 +5,7 @@ import core.exception.LocationCanNotBeEmptyException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static core.Utils.LOCATION_EMPTY;
+import static core.helper.StringHelper.LOCATION_EMPTY;
 
 /**
  *
