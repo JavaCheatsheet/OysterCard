@@ -1,8 +1,32 @@
 # OysterCard
 
-Some point to note:
-1. User can travel in the direction from Zone 1
-   to Zone 3 (for now).
-2. All the stations comes one after another.
-3. There are separate devices or the device understands
-   either the user checked-in or checked-out.
+Some points to note:
+
+### Assumption
+1. All the stations comes one after another in an 
+ascending order.
+2. Tube platform is linear, not circular, i.e. start
+does not connect with end.
+
+### Implementation
+1. User can travel in the one direction from Zone 1
+   to Zone 3. 
+2. All the stations and zones are hardcoded. (for this version)
+
+### Next version features
+1. Bi-directional travel.
+2. Provide external data source for zones and stations.
+3. As the nature of system will have huge volume of
+transactions every minutes, must consider scalability,
+reliability as design goals. Probably use threading
+at system level and message based distributed architecture.
+4. Use Architectural Decision Records to track system decisions.
+   https://adr.github.io
+   https://github.com/adoble/adr-j
+
+
+# Documentation
+Software Development Lifecycle (SDLC) is documented 
+in `sdlc` folder, named as per stages.
+
+
