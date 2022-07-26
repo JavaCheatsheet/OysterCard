@@ -6,3 +6,5 @@ Tools used in development environment
 - Apache Maven 3.6.3
 - Docker version 20.10.17, build 100c701
 - git version 2.25.1
+- Github.com
+- https://app.diagrams.net Design document

@@ -11,7 +11,12 @@ does not connect with end.
 ### Implementation
 1. User can travel in the one direction from Zone 1
    to Zone 3. 
-2. All the stations and zones are hardcoded. (for this version)
+2. All the stations and zones are hardcoded.
+3. Application does not take any input. A CLI based
+application runs.
+
+To run the application view: 
+sdlc > 4.implemention > Development.md
 
 ### Next version features
 1. Bi-directional travel.
